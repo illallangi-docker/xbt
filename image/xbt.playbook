@@ -1,0 +1,16 @@
+---
+- hosts: all
+  tasks:
+    - yum:
+        name:  "{{ item }}"
+        state: "present"
+      with_items:
+        - "boost-system"
+        - "mariadb-libs"
+    - file:
+        path:  "/usr/local/bin/{{ item }}"
+        owner: "root"
+        group: "root"
+        mode:  "0755"
+      with_items:
+        - "xbt_tracker"

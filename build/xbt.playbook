@@ -1,0 +1,26 @@
+---
+- hosts: all
+  tasks:
+    - yum:
+        name:  "{{ item }}"
+        state: "present"
+      with_items:
+        - "boost-devel"
+        - "gcc-c++"
+        - "mariadb-devel"
+        - "unzip"
+    - get_url:
+        url:      "https://github.com/shakahl/xbt/archive/{{ ansible_env.XBT_VERSION }}.zip"
+        dest:     "/usr/local/src/xbt-{{ ansible_env.XBT_VERSION }}.zip"
+        checksum: "sha256:{{ ansible_env.XBT_SHA256 }}"
+    - unarchive:
+        src:     "/usr/local/src/xbt-{{ ansible_env.XBT_VERSION }}.zip"
+        dest:    "/usr/local/src/"
+        creates: "/usr/local/src/xbt-{{ ansible_env.XBT_VERSION }}/README.md"
+    - command: "{{ item.command }}"
+      args:
+        chdir: "/usr/local/src/xbt-{{ ansible_env.XBT_VERSION }}/xbt/Tracker"
+        creates: "{{ item.creates }}"
+      with_items:
+        - command: "/usr/bin/bash ./make.sh"
+          creates: "/usr/local/src/xbt-{{ ansible_env.XBT_VERSION }}/xbt/Tracker/xbt_tracker"

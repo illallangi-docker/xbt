@@ -1,0 +1,4 @@
+mysql_host = {{ ansible_env.XBT_DB_HOST | default('db') }}
+mysql_user = {{ ansible_env.MYSQL_USER | default(ansible_env.XBT_DB_USER) }}
+mysql_password = {{ ansible_env.MYSQL_PASSWORD | default(ansible_env.XBT_DB_PASSWORD) }}
+mysql_database = {{ ansible_env.MYSQL_DATABASE | default(ansible_env.XBT_DB_NAME) }}

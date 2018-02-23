@@ -1,0 +1,5 @@
+#!/bin/bash -e
+
+/var/lib/flyway/flyway migrate
+
+/usr/local/bin/xbt_tracker --conf_file {{ ansible_env.XBT_CONFIG | default('/var/lib/' + (ansible_env.USER | default('docker')) + '/.config/xbt') }}/xbt_tracker.conf

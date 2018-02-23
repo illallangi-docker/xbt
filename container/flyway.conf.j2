@@ -1,0 +1,3 @@
+flyway.url=jdbc:mysql://{{ ansible_env.XBT_DB_HOST | default('db') }}:{{ ansible_env.XBT_DB_PORT | default('3306') }}/{{ ansible_env.MYSQL_DATABASE | default(ansible_env.XBT_DB_NAME) }}
+flyway.user={{ ansible_env.MYSQL_USER | default(ansible_env.XBT_DB_USER) }}
+flyway.password={{ ansible_env.MYSQL_PASSWORD | default(ansible_env.XBT_DB_PASSWORD) }}
